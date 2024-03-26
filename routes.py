@@ -11,14 +11,14 @@ import json
 
 main_routes = Blueprint('main_routes', __name__)
 
-
+# чтение пользовательских переменных из json-файла
 with open('settings.json', "r" , encoding='utf-8') as json_file:
     settings = json.load(json_file)
 
 
 @main_routes.route('/', methods=['GET', 'POST'])
 def hello_world():
-    if request.method =='POST':
+    if request.method =='POST': # при post-запросе считываются формы, записываются в файл
         settings["user_data"] = request.form.to_dict()
         with open('settings.json', "w", encoding='utf-8') as write_file:
             json.dump(settings, write_file)
@@ -27,5 +27,6 @@ def hello_world():
 
 @main_routes.route('/_')
 def hello_world_():
+    """Обработка ajax-запросов"""
     data = {"data": round(5*random.random(), 4)}
     return jsonify(data)
