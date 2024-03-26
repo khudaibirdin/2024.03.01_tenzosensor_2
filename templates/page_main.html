@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ТензоCенсор</title>
+    <link type="text/css" href="{{ url_for('static', filename='css/page_main.css')}}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/page_main.js') }}"></script>
+</head>
+
+<body>
+    <div class="block_head">
+        <div style="font-size: 32px; font-weight: 1000;">ТензоСенсор</div>
+        <div style="font-size: 14px;">
+            ПО для работы с мобильным стендом<br/>
+            для проведения испытаний предохранительных клапанов (СППК) СТИ-10
+        </div>
+        <div class="block_menu">
+            <button onclick="menu_click()" id="settings_button" value="Настройки">Настройки</button>
+        </div>
+    </div>
+
+    <div class="block_body">
+
+        <div class="block_main_1" id="block_main_1">
+            <label for="pressure">Давление, МПа</label><br/>
+            <div id="pressure">0.0</div>
+            <label for="tenzo_type">MAX давление, МПа</label><br/>
+            <div id="force">0.0</div>
+            <button>Сформировать протокол</button>
+        </div>
+
+        <div class="block_main_2" id="block_main_2">
+            <div style="text-align: center; display: flex; flex-direction: row;">
+                <div style="padding: 5px;">
+                    <label for="tenzo_type">Выберите тип тензодатчика:</label>
+                    <select id="tenzo_type" name="tenzo_type">
+                        <option value="0...200 кг">0...200 кг</option>
+                        <option value="0...2000 кг">0...2000 кг</option>
+                    </select>
+                </div>
+    
+                <div style="padding: 5px;">
+                    <label for="tenzo_type">Выберите тип датчика давления:</label>
+                    <select id="pressure_type" name="pressure_type">
+                        <option value="0">Без датчика</option>
+                        <option value="0...25 МПа">0...25 МПа</option>
+                        <option value="0...2,5 МПа">0...2,5 МПа</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="display: flex; flex-direction: row; justify-content: center; padding: 15px;">
+                <div id="right_side">
+                    <p>Филиал</p>
+                    <p>Наименование оборудования</p>
+                    <p>Тип:</p>
+                    <p>Завод изготовитель</p>
+                    <p>Заводской номер</p>
+                    <p>Технологический номер</p>
+                    <p>Год выпуска</p>
+                    <p>№ пружины</p>
+                    <p>Средний диаметр уплотнения в затворе (мм)</p>
+                    <p>Давление рабочее (МПа)</p>
+                    <p>Давление среды под клапаном (кгс)</p>
+                    <p>Давление установочное (МПа)</p>
+                    <p>Место установки</p>
+                    <p>Должность</p>
+                    <p>И.О. Фамилия</p>
+                    <p>Усилие начала эксперимента в режиме АВТО (кгс)</p>
+                </div>
+    
+                <div id="right_side">
+                    <form method="post">
+                        <p><input name="filial" value={{settings.user_data.filial}}></p>
+                        <p><input name="naim" value={{settings.user_data.naim}}></p>
+                        <p><input name="tip" value={{settings.user_data.tip}}></p>
+                        <p><input name="zavod" value="{{settings.user_data.zavod}}"></p>
+                        <p><input name="zav_nomer" value="{{settings.user_data.zav_nomer}}"></p>
+                        <p><input name="techn_nom" value="{{settings.user_data.techn_nom}}"></p>
+                        <p><input name="god" value="{{settings.user_data.god}}"></p>
+                        <p><input name="pruzhina" value="{{settings.user_data.pruzhina}}"></p>
+                        <p><input name="diam_upl" value="{{settings.user_data.diam_upl}}"></p>
+                        <p><input name="rab_davl" value="{{settings.user_data.rab_davl}}"></p>
+                        <p><input name="ust_davl" value="{{settings.user_data.ust_davl}}"></p>
+                        <p><input name="davl_sredi" value="{{settings.user_data.davl_sredi}}"></p>
+                        <p><input name="mesto_ust" value="{{settings.user_data.mesto_ust}}"></p>
+                        <p><input name="dolzhn" value="{{settings.user_data.dolzhn}}"></p>
+                        <p><input name="person" value="{{settings.user_data.person}}"></p>
+                        <p><input name="v1_transformed_exp_begin" value="{{settings.user_data.v1_transformed_exp_begin}}"></p>
+                    
+                </div>
+                <p><input type="submit" value="Подтведить изменения"></p>
+                    </form>
+            </div>
+            
+        </div>
+    </div>
+    <div class="block_bottom">
+        ООО "Газпром трансгаз Уфа" Инженерно-технический центр, КИПиА, СДО
+    </div>
+</body>
+</html>
