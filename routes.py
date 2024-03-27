@@ -19,7 +19,7 @@ with open('settings.json', "r" , encoding='utf-8') as json_file:
 @main_routes.route('/', methods=['GET', 'POST'])
 def hello_world():
     if request.method =='POST': # при post-запросе считываются формы, записываются в файл
-        settings["user_data"] = request.form.to_dict()
+        settings = request.form.to_dict()
         with open('settings.json', "w", encoding='utf-8') as write_file:
             json.dump(settings, write_file)
     return render_template('page_main.html', settings=settings)

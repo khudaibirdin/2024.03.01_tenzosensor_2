@@ -32,27 +32,12 @@
         </div>
 
         <div class="block_main_2" id="block_main_2">
-            <div style="text-align: center; display: flex; flex-direction: row;">
-                <div style="padding: 5px;">
-                    <label for="tenzo_type">Выберите тип тензодатчика:</label>
-                    <select id="tenzo_type" name="tenzo_type">
-                        <option value="0...200 кг">0...200 кг</option>
-                        <option value="0...2000 кг">0...2000 кг</option>
-                    </select>
-                </div>
-    
-                <div style="padding: 5px;">
-                    <label for="tenzo_type">Выберите тип датчика давления:</label>
-                    <select id="pressure_type" name="pressure_type">
-                        <option value="0">Без датчика</option>
-                        <option value="0...25 МПа">0...25 МПа</option>
-                        <option value="0...2,5 МПа">0...2,5 МПа</option>
-                    </select>
-                </div>
-            </div>
-            
+        
             <div style="display: flex; flex-direction: row; justify-content: center; padding: 15px;">
-                <div id="right_side">
+                <div class="block">
+                    <p>COM-порт</p>
+                    <p style="color: red; font-weight: 600;">Тензодатчик</p>
+                    <p style="color: red; font-weight: 600;">Датчик давления</p>
                     <p>Филиал</p>
                     <p>Наименование оборудования</p>
                     <p>Тип:</p>
@@ -61,34 +46,70 @@
                     <p>Технологический номер</p>
                     <p>Год выпуска</p>
                     <p>№ пружины</p>
-                    <p>Средний диаметр уплотнения в затворе (мм)</p>
+                    <p style="color: red; font-weight: 600;">Средний диаметр уплотнения в затворе (мм)</p>
                     <p>Давление рабочее (МПа)</p>
-                    <p>Давление среды под клапаном (кгс)</p>
+                    <p style="color: red; font-weight: 600;">Давление среды под клапаном (кгс)</p>
                     <p>Давление установочное (МПа)</p>
                     <p>Место установки</p>
                     <p>Должность</p>
                     <p>И.О. Фамилия</p>
-                    <p>Усилие начала эксперимента в режиме АВТО (кгс)</p>
+                    <p style="color: red; font-weight: 600;">Усилие начала эксперимента в режиме АВТО (кгс)</p>
                 </div>
     
-                <div id="right_side">
+                <div class="block">
                     <form method="post">
-                        <p><input name="filial" value={{settings.user_data.filial}}></p>
-                        <p><input name="naim" value={{settings.user_data.naim}}></p>
-                        <p><input name="tip" value={{settings.user_data.tip}}></p>
-                        <p><input name="zavod" value="{{settings.user_data.zavod}}"></p>
-                        <p><input name="zav_nomer" value="{{settings.user_data.zav_nomer}}"></p>
-                        <p><input name="techn_nom" value="{{settings.user_data.techn_nom}}"></p>
-                        <p><input name="god" value="{{settings.user_data.god}}"></p>
-                        <p><input name="pruzhina" value="{{settings.user_data.pruzhina}}"></p>
-                        <p><input name="diam_upl" value="{{settings.user_data.diam_upl}}"></p>
-                        <p><input name="rab_davl" value="{{settings.user_data.rab_davl}}"></p>
-                        <p><input name="ust_davl" value="{{settings.user_data.ust_davl}}"></p>
-                        <p><input name="davl_sredi" value="{{settings.user_data.davl_sredi}}"></p>
-                        <p><input name="mesto_ust" value="{{settings.user_data.mesto_ust}}"></p>
-                        <p><input name="dolzhn" value="{{settings.user_data.dolzhn}}"></p>
-                        <p><input name="person" value="{{settings.user_data.person}}"></p>
-                        <p><input name="v1_transformed_exp_begin" value="{{settings.user_data.v1_transformed_exp_begin}}"></p>
+                        <p>
+                            <input type="number" step="1" min="1" max="20" name="port" value={{settings.port}}>
+                        </p>
+                        <p>
+                            <select id="tenzo_type" name="tenzo_type" style="width: 200px;">
+                                {% if settings.tenzo_type == "0...200 кг" %}
+                                <option value="0...200 кг" selected>0...200 кг</option>
+                                {% else %}
+                                <option value="0...200 кг">0...200 кг</option>
+                                {% endif %}
+                                {% if settings.tenzo_type == "0...2000 кг" %}
+                                <option value="0...2000 кг" selected >0...2000 кг</option>
+                                {% else %}
+                                <option value="0...2000 кг">0...2000 кг</option>
+                                {% endif %}
+                            </select>
+                        </p>
+                        <p>
+                            <select id="pressure_type" name="pressure_type" style="width: 200px;">
+                                {% if settings.pressure_type == "0" %}
+                                <option value="0" selected>Без датчика</option>
+                                {% else %}
+                                <option value="0">Без датчика</option>
+                                {% endif %}
+                                {% if settings.pressure_type == "0...25 МПа" %}
+                                <option value="0...25 МПа" selected>0...25 МПа</option>
+                                {% else %}
+                                <option value="0...25 МПа">0...25 МПа</option>
+                                {% endif %}
+                                {% if settings.pressure_type == "0...2,5 МПа" %}
+                                <option value="0...2,5 МПа" selected>0...2,5 МПа</option>
+                                {% else %}
+                                <option value="0...2,5 МПа">0...2,5 МПа</option>
+                                {% endif %}
+                            </select>
+                        </p>
+                        <p><input name="filial" value={{settings.filial}}></p>
+                        <p><input name="naim" value={{settings.naim}}></p>
+                        <p><input name="tip" value={{settings.tip}}></p>
+                        <p><input name="zavod" value="{{settings.zavod}}"></p>
+                        <p><input name="zav_nomer" value="{{settings.zav_nomer}}"></p>
+                        <p><input name="techn_nom" value="{{settings.techn_nom}}"></p>
+                        <p><input name="god" value="{{settings.god}}"></p>
+                        <p><input name="pruzhina" value="{{settings.pruzhina}}"></p>
+                        <p><input name="diam_upl" value="{{settings.diam_upl}}"></p>
+                        <p><input name="rab_davl" value="{{settings.rab_davl}}"></p>
+                        <p><input name="ust_davl" value="{{settings.ust_davl}}"></p>
+                        <p><input name="davl_sredi" value="{{settings.davl_sredi}}"></p>
+                        <p><input name="mesto_ust" value="{{settings.mesto_ust}}"></p>
+                        <p><input name="dolzhn" value="{{settings.dolzhn}}"></p>
+                        <p><input name="person" value="{{settings.person}}"></p>
+                        <p><input name="v1_transformed_exp_begin" value="{{settings.v1_transformed_exp_begin}}"></p>
                     
                 </div>
             </div>
