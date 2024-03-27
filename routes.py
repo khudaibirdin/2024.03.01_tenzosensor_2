@@ -14,7 +14,12 @@ main_routes = Blueprint('main_routes', __name__)
 
 
 @main_routes.route('/', methods=['GET', 'POST'])
-def hello_world():
+def main_page():
+    """
+    Обработчик основной страницы,
+    открывает шаблон, при POST запросе (нажатие подтверждения изменений)
+    записывает новые данные в файл settings.json
+    """
     with open('settings.json', "r" , encoding='utf-8') as json_file:
         settings = json.load(json_file)
     if request.method =='POST': # при post-запросе считываются формы, записываются в файл
@@ -25,7 +30,10 @@ def hello_world():
 
 
 @main_routes.route('/_')
-def hello_world_():
-    """Обработка ajax-запросов"""
+def main_page_():
+    """
+    Обработка ajax-запросов,
+    передача на страницу актуальных данных
+    """
     data = {"data": current_app.config['data']}
     return jsonify(data)
