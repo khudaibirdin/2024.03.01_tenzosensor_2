@@ -6,9 +6,8 @@
 from flask import Flask, render_template
 from flask import Blueprint, request, jsonify
 from flask import current_app
-import random
 import json
-from functions import make_document
+from appfiles.functions import make_document
 
 main_routes = Blueprint('main_routes', __name__)
 
@@ -64,6 +63,7 @@ def main_page_sbros_max():
     Обработка ajax-запросов,
     сброс макс. значения
     """
+    print("Сброса максимума")
     current_app.config['max_pressure'] = 0
     data = {"data_pressure": round(current_app.config['data_pressure'], 2),
             "data_tenzo": round(current_app.config['data_tenzo'], 2),
@@ -77,8 +77,10 @@ def main_page_make_document():
     Обработка ajax-запросов,
     создание документа
     """
-    make_document(current_app)
-    data = {"data_pressure": round(current_app.config['data_pressure'], 2),
+    if len(current_app.config['data_massive']) > 0:
+        make_document(current_app)
+        current_app.config['max_pressure'] = 0
+        data = {"data_pressure": round(current_app.config['data_pressure'], 2),
             "data_tenzo": round(current_app.config['data_tenzo'], 2),
             "max_pressure": round(current_app.config['max_pressure'], 2)}
-    return jsonify(data)
+        return jsonify(data)

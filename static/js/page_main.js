@@ -44,6 +44,21 @@ function сorrect_null() {
         }
     });
 }
+function sbros_max() {
+    $.ajax({
+        url: '/sbros_max',  // Flask route URL
+        method: 'get',
+        dataType: 'json',
+        success: function(data) {
+            $('#pressure_from_sensor').text(data.data_pressure);
+            $('#tenzo').text(data.data_tenzo);
+            $('#max_pressure').text(data.max_pressure);
+        },
+        error: function() {
+            console.error('Error fetching data.');
+        }
+    });
+}
 
 function make_document() {
     $.ajax({

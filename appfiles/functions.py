@@ -28,7 +28,7 @@ def func(mb, app):
         app.config['max_pressure'] = data_tenzo
         print(app.config['max_pressure'])
     if data_tenzo_raw >= float(app.config["settings"]["v1_transformed_exp_begin"]):
-        app.config["data_massive"].append(data_tenzo_raw)
+        app.config["data_massive"].append(data_tenzo)
         app.config["time_massive"].append(datetime.now())
 
 
@@ -71,8 +71,8 @@ def make_document(app):
                'doc_dolzhn': app.config["settings"]["dolzhn"],
                'doc_person': app.config["settings"]["person"]}
     doc.render(context)
-    doc.save(f"Протокол№{1}.docx")
+    doc.save(f"docs/Протокол№{1}.docx")
     try:
-        startfile(f"Протокол№{1}.docx")
+        startfile(f"docs/Протокол№{1}.docx")
     except:
-        startfile(f"Протокол№{1}.docx")
+        startfile(f"docs\Протокол№{1}.docx")

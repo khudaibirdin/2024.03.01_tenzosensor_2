@@ -4,11 +4,12 @@
 
 
 from flask import Flask, render_template
-from routes import main_routes
-from functions import func
+from appfiles.routes import main_routes
+from appfiles.functions import func
 import os, json
 from apscheduler.schedulers.background import BackgroundScheduler
-from classes import GetModbusData
+from appfiles.classes import GetModbusData
+os.system('explorer "http://127.0.0.1:5000/"')
 
 # создание экземпляра flask-приложения
 app = Flask(__name__)
@@ -24,12 +25,10 @@ with open('settings.json', "r" , encoding='utf-8') as json_file:
 
 # экземпляр класса для обработки modbus, он передается в scheduler
 mb = GetModbusData()
-
-
 sched = BackgroundScheduler(daemon=True)
 sched.add_job(func,'interval', seconds=0.1, args=[mb, app]) # также передается app, т.к. в функции происх. измен. переменной
 sched.start()
 
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=False, threaded = True)
+    app.run(debug=False, use_reloader=False, threaded = True)
