@@ -24,11 +24,15 @@
     <div class="block_body">
 
         <div class="block_main_1" id="block_main_1">
-            <label for="pressure">Давление, МПа</label><br/>
-            <div id="pressure">0.0</div>
-            <label for="tenzo_type">MAX давление, МПа</label><br/>
-            <div id="force">0.0</div>
-            <button>Сформировать протокол</button>
+            <label for="tenzo">Давление, МПа</label><br/>
+            <div style="font-size: 48px; font-weight: 600;" id="tenzo">0.0</div>
+            <button onclick="сorrect_null()">Коррекция нуля</button>
+            <label for="max_pressure">MAX давление, МПа</label><br/>
+            <div style="font-size: 32px; font-weight: 600;" id="max_pressure">0.0</div>
+            <button onclick="sbros_max()">Сброс</button>
+            <label for="pressure_from_sensor">Давление с датчика, МПа</label><br/>
+            <div style="font-size: 32px; font-weight: 600;" id="pressure_from_sensor">0.0</div>
+            <button onclick="make_document()">Сформировать протокол</button>
         </div>
 
         <div class="block_main_2" id="block_main_2">
@@ -63,15 +67,15 @@
                         </p>
                         <p>
                             <select id="tenzo_type" name="tenzo_type" style="width: 200px;">
-                                {% if settings.tenzo_type == "0...200 кг" %}
-                                <option value="0...200 кг" selected>0...200 кг</option>
+                                {% if settings.tenzo_type == "200" %}
+                                <option value="200" selected>0...200 кг</option>
                                 {% else %}
-                                <option value="0...200 кг">0...200 кг</option>
+                                <option value="200">0...200 кг</option>
                                 {% endif %}
-                                {% if settings.tenzo_type == "0...2000 кг" %}
-                                <option value="0...2000 кг" selected >0...2000 кг</option>
+                                {% if settings.tenzo_type == "2000" %}
+                                <option value="2000" selected >0...2000 кг</option>
                                 {% else %}
-                                <option value="0...2000 кг">0...2000 кг</option>
+                                <option value="2000">0...2000 кг</option>
                                 {% endif %}
                             </select>
                         </p>
@@ -82,15 +86,15 @@
                                 {% else %}
                                 <option value="0">Без датчика</option>
                                 {% endif %}
-                                {% if settings.pressure_type == "0...25 МПа" %}
-                                <option value="0...25 МПа" selected>0...25 МПа</option>
+                                {% if settings.pressure_type == "25" %}
+                                <option value="25" selected>0...25 МПа</option>
                                 {% else %}
-                                <option value="0...25 МПа">0...25 МПа</option>
+                                <option value="25">0...25 МПа</option>
                                 {% endif %}
-                                {% if settings.pressure_type == "0...2,5 МПа" %}
-                                <option value="0...2,5 МПа" selected>0...2,5 МПа</option>
+                                {% if settings.pressure_type == "60" %}
+                                <option value="60" selected>0...60 МПа</option>
                                 {% else %}
-                                <option value="0...2,5 МПа">0...2,5 МПа</option>
+                                <option value="60">0...60 МПа</option>
                                 {% endif %}
                             </select>
                         </p>

@@ -19,7 +19,9 @@ function updateDynamicContent() {
         dataType: 'json',
         success: function(data) {
             // Update the content with the fetched data
-            $('#pressure').text(data.data);
+            $('#pressure_from_sensor').text(data.data_pressure);
+            $('#tenzo').text(data.data_tenzo);
+            $('#max_pressure').text(data.max_pressure);
         },
         error: function() {
             console.error('Error fetching data.');
@@ -27,6 +29,36 @@ function updateDynamicContent() {
     });
 }
 
+function сorrect_null() {
+    $.ajax({
+        url: '/correct_null',  // Flask route URL
+        method: 'get',
+        dataType: 'json',
+        success: function(data) {
+            $('#pressure_from_sensor').text(data.data_pressure);
+            $('#tenzo').text(data.data_tenzo);
+            $('#max_pressure').text(data.max_pressure);
+        },
+        error: function() {
+            console.error('Error fetching data.');
+        }
+    });
+}
 
+function make_document() {
+    $.ajax({
+        url: '/make_document',  // Flask route URL
+        method: 'get',
+        dataType: 'json',
+        success: function(data) {
+            $('#pressure_from_sensor').text(data.data_pressure);
+            $('#tenzo').text(data.data_tenzo);
+            $('#max_pressure').text(data.max_pressure);
+        },
+        error: function() {
+            console.error('Error fetching data.');
+        }
+    });
+}
 // Call the update function initially and set an interval to update regularly
 setInterval(updateDynamicContent, 100);

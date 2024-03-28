@@ -8,18 +8,23 @@ from routes import main_routes
 from functions import func
 import os, json
 from apscheduler.schedulers.background import BackgroundScheduler
-from classes.classes import GetModbusData
+from classes import GetModbusData
 
 # создание экземпляра flask-приложения
 app = Flask(__name__)
 app.register_blueprint(main_routes)
-
+app.config['max_pressure'] = 0
+app.config['shift'] = 0
+app.config['data_tenzo_raw_unpack'] = 0
+app.config["data_massive"] = []
+app.config["time_massive"] = []
 # подъем данных с файла settings.json
 with open('settings.json', "r" , encoding='utf-8') as json_file:
-    settings = json.load(json_file)
+    app.config["settings"] = settings = json.load(json_file)
 
 # экземпляр класса для обработки modbus, он передается в scheduler
-mb = GetModbusData(config=settings)
+mb = GetModbusData()
+
 
 sched = BackgroundScheduler(daemon=True)
 sched.add_job(func,'interval', seconds=0.1, args=[mb, app]) # также передается app, т.к. в функции происх. измен. переменной
@@ -27,4 +32,4 @@ sched.start()
 
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=True, use_reloader=False, threaded = True)

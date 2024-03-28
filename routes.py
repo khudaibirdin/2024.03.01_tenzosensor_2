@@ -8,7 +8,7 @@ from flask import Blueprint, request, jsonify
 from flask import current_app
 import random
 import json
-
+from functions import make_document
 
 main_routes = Blueprint('main_routes', __name__)
 
@@ -26,6 +26,7 @@ def main_page():
         settings = request.form.to_dict()
         with open('settings.json', "w", encoding='utf-8') as write_file:
             json.dump(settings, write_file)
+        current_app.config["settings"] = settings
     return render_template('page_main.html', settings=settings)
 
 
@@ -35,5 +36,49 @@ def main_page_():
     Обработка ajax-запросов,
     передача на страницу актуальных данных
     """
-    data = {"data": current_app.config['data']}
+    data = {"data_tenzo": round(float(current_app.config['data_tenzo']), 2),
+            "max_pressure": round(float(current_app.config['max_pressure']), 2)}
+    return jsonify(data)
+
+
+@main_routes.route('/correct_null')
+def main_page_correct_null():
+    """
+    Обработка ajax-запросов,
+    коррекция нуля
+    """
+    print("коррекция")
+    if current_app.config["settings"]['tenzo_type'] == "200":
+        current_app.config['shift'] = current_app.config['data_tenzo_raw_unpack'] - (-0.071)
+    if current_app.config["settings"]['tenzo_type'] == "2000":
+        current_app.config['shift'] = current_app.config['data_tenzo_raw_unpack'] - (-0.068)
+    data = {"data_pressure": round(current_app.config['data_pressure'], 2),
+            "data_tenzo": round(current_app.config['data_tenzo'], 2),
+            "max_pressure": round(current_app.config['max_pressure'], 2)}
+    return jsonify(data)
+
+
+@main_routes.route('/sbros_max')
+def main_page_sbros_max():
+    """
+    Обработка ajax-запросов,
+    сброс макс. значения
+    """
+    current_app.config['max_pressure'] = 0
+    data = {"data_pressure": round(current_app.config['data_pressure'], 2),
+            "data_tenzo": round(current_app.config['data_tenzo'], 2),
+            "max_pressure": round(current_app.config['max_pressure'], 2)}
+    return jsonify(data)
+
+
+@main_routes.route('/make_document')
+def main_page_make_document():
+    """
+    Обработка ajax-запросов,
+    создание документа
+    """
+    make_document(current_app)
+    data = {"data_pressure": round(current_app.config['data_pressure'], 2),
+            "data_tenzo": round(current_app.config['data_tenzo'], 2),
+            "max_pressure": round(current_app.config['max_pressure'], 2)}
     return jsonify(data)
