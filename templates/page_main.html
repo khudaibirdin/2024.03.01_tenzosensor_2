@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ТензоCенсор</title>
     <link type="text/css" href="{{ url_for('static', filename='css/page_main.css')}}" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/page_main.js') }}"></script>
 </head>
 
@@ -39,9 +39,12 @@
         
             <div style="display: flex; flex-direction: row; justify-content: center; padding: 15px;">
                 <div class="block">
-                    <p>COM-порт</p>
+                    <p style="color: red; font-weight: 600;">COM-порт</p>
                     <p style="color: red; font-weight: 600;">Тензодатчик</p>
                     <p style="color: red; font-weight: 600;">Датчик давления</p>
+                    <p style="color: red; font-weight: 600;">Средний диаметр уплотнения в затворе (мм)</p>
+                    <p style="color: red; font-weight: 600;">Давление установочное (МПа)</p>
+                    <p style="color: red; font-weight: 600;">Усилие начала эксперимента в режиме АВТО (кгс)</p>
                     <p>Филиал</p>
                     <p>Наименование оборудования</p>
                     <p>Тип:</p>
@@ -50,14 +53,12 @@
                     <p>Технологический номер</p>
                     <p>Год выпуска</p>
                     <p>№ пружины</p>
-                    <p style="color: red; font-weight: 600;">Средний диаметр уплотнения в затворе (мм)</p>
                     <p>Давление рабочее (МПа)</p>
                     <p>Давление среды под клапаном (кгс)</p>
-                    <p style="color: red; font-weight: 600;">Давление установочное (МПа)</p>
                     <p>Место установки</p>
                     <p>Должность</p>
                     <p>И.О. Фамилия</p>
-                    <p style="color: red; font-weight: 600;">Усилие начала эксперимента в режиме АВТО (кгс)</p>
+                    <p>Крайний номер документа</p>
                 </div>
     
                 <div class="block">
@@ -98,6 +99,9 @@
                                 {% endif %}
                             </select>
                         </p>
+                        <p><input name="diam_upl" value="{{settings.diam_upl}}"></p>
+                        <p><input name="ust_davl" value="{{settings.ust_davl}}"></p>
+                        <p><input name="v1_transformed_exp_begin" value="{{settings.v1_transformed_exp_begin}}"></p>
                         <p><input name="filial" value={{settings.filial}}></p>
                         <p><input name="naim" value={{settings.naim}}></p>
                         <p><input name="tip" value={{settings.tip}}></p>
@@ -106,14 +110,12 @@
                         <p><input name="techn_nom" value="{{settings.techn_nom}}"></p>
                         <p><input name="god" value="{{settings.god}}"></p>
                         <p><input name="pruzhina" value="{{settings.pruzhina}}"></p>
-                        <p><input name="diam_upl" value="{{settings.diam_upl}}"></p>
                         <p><input name="rab_davl" value="{{settings.rab_davl}}"></p>
-                        <p><input name="ust_davl" value="{{settings.ust_davl}}"></p>
                         <p><input name="davl_sredi" value="{{settings.davl_sredi}}"></p>
                         <p><input name="mesto_ust" value="{{settings.mesto_ust}}"></p>
                         <p><input name="dolzhn" value="{{settings.dolzhn}}"></p>
                         <p><input name="person" value="{{settings.person}}"></p>
-                        <p><input name="v1_transformed_exp_begin" value="{{settings.v1_transformed_exp_begin}}"></p>
+                        <p><input name="doc_num" value="{{settings.doc_num}}"></p>
                     
                 </div>
             </div>

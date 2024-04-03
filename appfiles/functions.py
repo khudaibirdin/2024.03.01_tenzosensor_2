@@ -9,17 +9,13 @@ def func(mb, app):
                                            slave_parameters={"slave_id": 4, "register": 46, "register_number": 2}, 
                                            sensor_type=app.config["settings"]["pressure_type"], 
                                            shift=0) # датчик давления
-    print(data_pressure_from_sensor)
     data_tenzo_raw, data_tenzo_raw_unpack = mb.process(configuration=app.config["settings"],
                             slave_parameters={"slave_id": 16, "register": 62, "register_number": 2}, 
                             sensor_type=app.config["settings"]["tenzo_type"],
                             shift=app.config['shift']) # тензодатчик
     data_tenzo = (data_pressure_from_sensor*0.98*10.2+(4.0*data_tenzo_raw)/(3.14*float(app.config["settings"]["diam_upl"])/10.0*float(app.config["settings"]["diam_upl"])/10.0))/10.2
     if app.config["settings"]["pressure_type"] == "0":
-        print("корр по уст")
         data_tenzo = (float(app.config["settings"]["davl_sredi"])*0.98*10.2+(4.0*data_tenzo_raw)/(3.14*float(app.config["settings"]["diam_upl"])/10.0*float(app.config["settings"]["diam_upl"])/10.0))/10.2
-    print(data_tenzo)
-    
     app.config['data_tenzo_raw_unpack'] = data_tenzo_raw_unpack
     app.config['data_pressure'] = data_pressure_from_sensor
     app.config['data_tenzo'] = data_tenzo
@@ -48,6 +44,7 @@ def make_document(app):
     plt.legend()
     plt.savefig('user/grafic1.png')
     plt.clf()
+    plt.close()
     app.config["data_massive"].clear()
     app.config["time_massive"].clear()
     doc = DocxTemplate("user/shablon.docx")
@@ -71,8 +68,9 @@ def make_document(app):
                'doc_dolzhn': app.config["settings"]["dolzhn"],
                'doc_person': app.config["settings"]["person"]}
     doc.render(context)
-    doc.save(f"docs/Протокол№{1}.docx")
+    app.config["settings"]["doc_num"] = str(int(app.config["settings"]["doc_num"]) + 1)
+    doc.save(f"documents\Протокол№{app.config["settings"]["doc_num"]}.docx")
     try:
-        startfile(f"docs/Протокол№{1}.docx")
+        startfile(f"documents\Протокол№{app.config["settings"]["doc_num"]}.docx")
     except:
-        startfile(f"docs\Протокол№{1}.docx")
+        startfile(f"documents\Протокол№{app.config["settings"]["doc_num"]}.docx")

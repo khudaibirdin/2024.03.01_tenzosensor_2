@@ -19,14 +19,12 @@ def main_page():
     открывает шаблон, при POST запросе (нажатие подтверждения изменений)
     записывает новые данные в файл settings.json
     """
-    with open('settings.json', "r" , encoding='utf-8') as json_file:
-        settings = json.load(json_file)
     if request.method =='POST': # при post-запросе считываются формы, записываются в файл
         settings = request.form.to_dict()
         with open('settings.json', "w", encoding='utf-8') as write_file:
             json.dump(settings, write_file)
         current_app.config["settings"] = settings
-    return render_template('page_main.html', settings=settings)
+    return render_template('page_main.html', settings=current_app.config["settings"])
 
 
 @main_routes.route('/_')
@@ -79,8 +77,11 @@ def main_page_make_document():
     """
     if len(current_app.config['data_massive']) > 0:
         make_document(current_app)
+        with open('settings.json', "w", encoding='utf-8') as write_file:
+            json.dump(current_app.config["settings"], write_file)
         current_app.config['max_pressure'] = 0
         data = {"data_pressure": round(current_app.config['data_pressure'], 2),
             "data_tenzo": round(current_app.config['data_tenzo'], 2),
             "max_pressure": round(current_app.config['max_pressure'], 2)}
         return jsonify(data)
+    

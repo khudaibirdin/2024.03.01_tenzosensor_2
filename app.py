@@ -23,6 +23,13 @@ app.config["time_massive"] = []
 with open('settings.json', "r" , encoding='utf-8') as json_file:
     app.config["settings"] = settings = json.load(json_file)
 
+try:
+    import serial.tools.list_ports
+    port = list(serial.tools.list_ports.comports())
+    app.config["settings"]["port"] = port[0][0][3:]
+except Exception as E:
+    print(E)
+    pass
 # экземпляр класса для обработки modbus, он передается в scheduler
 mb = GetModbusData()
 sched = BackgroundScheduler(daemon=True)
