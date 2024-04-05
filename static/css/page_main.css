@@ -40,7 +40,7 @@ body {
 }
 .block_main_1 {
     display: flex;
-    margin-top: 50px;
+    margin-top: 10px;
     flex-direction: column;
     align-items: center;
     font-size: 25px;

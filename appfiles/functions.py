@@ -19,6 +19,7 @@ def func(mb, app):
     app.config['data_tenzo_raw_unpack'] = data_tenzo_raw_unpack
     app.config['data_pressure'] = data_pressure_from_sensor
     app.config['data_tenzo'] = data_tenzo
+    app.config['data_tenzo_raw'] = data_tenzo_raw
     print(data_tenzo, app.config['max_pressure'])
     if abs(data_tenzo) > abs(app.config['max_pressure']):
         app.config['max_pressure'] = data_tenzo

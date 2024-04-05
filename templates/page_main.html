@@ -24,14 +24,18 @@
     <div class="block_body">
 
         <div class="block_main_1" id="block_main_1">
-            <label for="tenzo">Давление, МПа</label><br/>
-            <div style="font-size: 48px; font-weight: 600; padding: 10px;" id="tenzo">0.0</div>
-            <button onclick="сorrect_null()">Коррекция нуля</button>
-            <label for="max_pressure">MAX давление, МПа</label><br/>
-            <div style="font-size: 32px; font-weight: 600; padding: 10px;" id="max_pressure">0.0</div>
-            <button onclick="sbros_max()">Сброс</button>
-            <label for="pressure_from_sensor">Давление с датчика, МПа</label><br/>
-            <div style="font-size: 32px; font-weight: 600; padding: 10px;" id="pressure_from_sensor">0.0</div>
+            <label for="tenzo">Давление испытания:</label><br/>
+            <div style="font-size: 32px; font-weight: 600; padding: 5px;" id="tenzo">0.0</div>
+            <div style="font-size: 32px; font-weight: 600; padding: 5px;" id="data_tenzo_raw">0.0</div>
+            <button onclick="сorrect_null()" style="margin-bottom: 50px;">Коррекция нуля</button>
+
+            <div style="background-color: lightcoral; display: flex; flex-direction: column; border-radius: 20px; align-items: center; margin: 5px;">
+                <label for="max_pressure">Максимальное зафиксированное давление:</label><br/>
+                <div style="font-size: 32px; font-weight: 600; padding: 5px;" id="max_pressure">0.0</div>
+                <button onclick="sbros_max()"">Сброс</button>
+            </div>
+            <label for="pressure_from_sensor" style="margin-top: 50px;">Давление с датчика давления под клапаном:</label><br/>
+            <div style="font-size: 32px; font-weight: 600; padding: 5px;" id="pressure_from_sensor">0.0</div>
             <button onclick="make_document()">Сформировать протокол</button>
         </div>
 
@@ -43,7 +47,7 @@
                     <p style="color: red; font-weight: 600;">Тензодатчик</p>
                     <p style="color: red; font-weight: 600;">Датчик давления</p>
                     <p style="color: red; font-weight: 600;">Средний диаметр уплотнения в затворе (мм)</p>
-                    <p style="color: red; font-weight: 600;">Давление установочное (МПа)</p>
+                    <p style="color: red; font-weight: 600;">Давление среды под клапаном (кгс)</p>
                     <p style="color: red; font-weight: 600;">Усилие начала эксперимента в режиме АВТО (кгс)</p>
                     <p>Филиал</p>
                     <p>Наименование оборудования</p>
@@ -54,7 +58,7 @@
                     <p>Год выпуска</p>
                     <p>№ пружины</p>
                     <p>Давление рабочее (МПа)</p>
-                    <p>Давление среды под клапаном (кгс)</p>
+                    <p>Давление установочное (МПа)</p>
                     <p>Место установки</p>
                     <p>Должность</p>
                     <p>И.О. Фамилия</p>
@@ -100,7 +104,7 @@
                             </select>
                         </p>
                         <p><input name="diam_upl" value="{{settings.diam_upl}}"></p>
-                        <p><input name="ust_davl" value="{{settings.ust_davl}}"></p>
+                        <p><input name="davl_sredi" value="{{settings.davl_sredi}}"></p>
                         <p><input name="v1_transformed_exp_begin" value="{{settings.v1_transformed_exp_begin}}"></p>
                         <p><input name="filial" value={{settings.filial}}></p>
                         <p><input name="naim" value={{settings.naim}}></p>
@@ -111,7 +115,7 @@
                         <p><input name="god" value="{{settings.god}}"></p>
                         <p><input name="pruzhina" value="{{settings.pruzhina}}"></p>
                         <p><input name="rab_davl" value="{{settings.rab_davl}}"></p>
-                        <p><input name="davl_sredi" value="{{settings.davl_sredi}}"></p>
+                        <p><input name="ust_davl" value="{{settings.ust_davl}}"></p>
                         <p><input name="mesto_ust" value="{{settings.mesto_ust}}"></p>
                         <p><input name="dolzhn" value="{{settings.dolzhn}}"></p>
                         <p><input name="person" value="{{settings.person}}"></p>

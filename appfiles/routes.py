@@ -34,7 +34,9 @@ def main_page_():
     передача на страницу актуальных данных
     """
     data = {"data_tenzo": round(float(current_app.config['data_tenzo']), 2),
-            "max_pressure": round(float(current_app.config['max_pressure']), 2)}
+            "max_pressure": round(float(current_app.config['max_pressure']), 2),
+            "data_pressure": round(float(current_app.config['data_pressure']), 2),
+            "data_tenzo_raw": round(float(current_app.config['data_tenzo_raw']), 2)}
     return jsonify(data)
 
 

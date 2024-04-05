@@ -19,9 +19,10 @@ function updateDynamicContent() {
         dataType: 'json',
         success: function(data) {
             // Update the content with the fetched data
-            $('#pressure_from_sensor').text(data.data_pressure);
-            $('#tenzo').text(data.data_tenzo);
-            $('#max_pressure').text(data.max_pressure);
+            $('#pressure_from_sensor').text(data.data_pressure+" МПа");
+            $('#tenzo').text(data.data_tenzo+" МПа");
+            $('#max_pressure').text(data.max_pressure+" МПа");
+            $('#data_tenzo_raw').text(data.data_tenzo_raw+" кгс");
         },
         error: function() {
             console.error('Error fetching data.');
